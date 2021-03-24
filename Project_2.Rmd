@@ -87,11 +87,11 @@ treamtent_groups_tibble <- tibble(treatment_group, beak_depth)
 
 &emsp;&emsp; Birds of both G. fortis and G. scandens species have an average lifespan of about 5-7 years, although some have been recorded to live at least 12 years in the wild (Gibbs and Grant, 1987, p. 803-804). Since this data is collected 37 years apart, the observations can safely be considered independent. The variables of interest are as follows:
 
-**Outcome/Dependent Variable**
+**Outcome Variable**
 
 - Beak depth: The distance, in millimeters, between the top and bottom of the beak.
 
-**Predictor/Independent Variables**
+**Predictor Variables**
 
 - Year:
   - 1975 Group
