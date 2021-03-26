@@ -1497,38 +1497,11 @@ div.tocify {
 
 <h1 class="title toc-ignore">Darwin’s Finches: Comparing Beak Depth by Species Type and Year Group</h1>
 <h4 class="author">Katie Hidden</h4>
-<h4 class="date">Last updated: 2021-03-24</h4>
+<h4 class="date">Last updated: 2021-03-26</h4>
 
 </div>
 
 
-<pre class="r"><code>data1975 &lt;- read_csv(&quot;finch_beaks_1975.csv&quot;)</code></pre>
-<pre><code>## 
-## -- Column specification --------------------------------------------------------
-## cols(
-##   band = col_double(),
-##   species = col_character(),
-##   blength = col_double(),
-##   bdepth = col_double()
-## )</code></pre>
-<pre class="r"><code>data2012 &lt;- read_csv(&quot;finch_beaks_2012.csv&quot;)</code></pre>
-<pre><code>## 
-## -- Column specification --------------------------------------------------------
-## cols(
-##   band = col_double(),
-##   species = col_character(),
-##   blength = col_double(),
-##   bdepth = col_double()
-## )</code></pre>
-<pre class="r"><code>beak_depth &lt;- c(data1975$bdepth, data2012$bdepth)
-
-year_group &lt;- as.factor(c(rep(1975, 403), rep(2012, 248)))
-
-species_group &lt;- as.factor(c(rep(&quot;Fortis&quot;, 316), rep(&quot;Scandens&quot;, 87), rep(&quot;Fortis&quot;, 121), rep(&quot;Scandens&quot;, 127)))
-
-treatment_group &lt;- as.factor(c(rep(&quot;Fortis-1975&quot;, 316), rep(&quot;Scandens-1975&quot;, 87), rep(&quot;Fortis-2012&quot;, 121), rep(&quot;Scandens-2012&quot;, 127)))
-
-treamtent_groups_tibble &lt;- tibble(treatment_group, beak_depth)</code></pre>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <p>   In the early 19th century Charles Darwin studied finches in the Galapagos Islands. His observations of the diverse finches, of which each species seemed to be specially adapted to its environment, likely contributed to his ideas about natural selection and evolution. Darwin’s theory of evolution is now widely accepted, however further study and exploration continues. Darwin’s finches remain an especially important subject of study, particularly their beak size and shape, which adapt quickly to environmental changes (Grant 2017).</p>
@@ -1556,6 +1529,19 @@ treamtent_groups_tibble &lt;- tibble(treatment_group, beak_depth)</code></pre>
 <p class="caption">G. fortis. (left) and G. scandens (right) | Source: Peter R. Grant</p>
 </div>
 <p>I will use one-way and two-way ANOVA to analyze the data and to find out which variables affect beak depth, and what interactions, if any, exist.</p>
+<pre class="r"><code>data1975 &lt;- read_csv(&quot;finch_beaks_1975.csv&quot;)
+
+data2012 &lt;- read_csv(&quot;finch_beaks_2012.csv&quot;)
+
+beak_depth &lt;- c(data1975$bdepth, data2012$bdepth)
+
+year_group &lt;- as.factor(c(rep(1975, 403), rep(2012, 248)))
+
+species_group &lt;- as.factor(c(rep(&quot;Fortis&quot;, 316), rep(&quot;Scandens&quot;, 87), rep(&quot;Fortis&quot;, 121), rep(&quot;Scandens&quot;, 127)))
+
+treatment_group &lt;- as.factor(c(rep(&quot;Fortis-1975&quot;, 316), rep(&quot;Scandens-1975&quot;, 87), rep(&quot;Fortis-2012&quot;, 121), rep(&quot;Scandens-2012&quot;, 127)))
+
+treamtent_groups_tibble &lt;- tibble(treatment_group, beak_depth)</code></pre>
 </div>
 <div id="summary-statistics" class="section level2">
 <h2>Summary Statistics</h2>
@@ -1563,9 +1549,9 @@ treamtent_groups_tibble &lt;- tibble(treatment_group, beak_depth)</code></pre>
 <h3>Summary Data for Each Treatment Group</h3>
 <pre class="r"><code>summary_stats &lt;- treamtent_groups_tibble %&gt;%
                     group_by(&#39;Treament Group&#39;=treatment_group) %&gt;%
-                    summarise(mean = mean(beak_depth), sd = sd(beak_depth), min=min(beak_depth), median = median(beak_depth), max = max(beak_depth), n = n()) </code></pre>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<pre class="r"><code>summary_stats</code></pre>
+                    summarise(mean = mean(beak_depth), sd = sd(beak_depth), min=min(beak_depth), median = median(beak_depth), max = max(beak_depth), n = n()) 
+
+summary_stats</code></pre>
 <pre><code>## # A tibble: 4 x 7
 ##   `Treament Group`  mean    sd   min median   max     n
 ##   &lt;fct&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
