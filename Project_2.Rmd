@@ -63,21 +63,6 @@ almost_sas <- function(aov.results){
 }
 ```
 
-```{r data}
-data1975 <- read_csv("finch_beaks_1975.csv")
-
-data2012 <- read_csv("finch_beaks_2012.csv")
-
-beak_depth <- c(data1975$bdepth, data2012$bdepth)
-
-year_group <- as.factor(c(rep(1975, 403), rep(2012, 248)))
-
-species_group <- as.factor(c(rep("Fortis", 316), rep("Scandens", 87), rep("Fortis", 121), rep("Scandens", 127)))
-
-treatment_group <- as.factor(c(rep("Fortis-1975", 316), rep("Scandens-1975", 87), rep("Fortis-2012", 121), rep("Scandens-2012", 127)))
-
-treamtent_groups_tibble <- tibble(treatment_group, beak_depth)
-```
 
 ## Introduction
 
@@ -105,12 +90,27 @@ treamtent_groups_tibble <- tibble(treatment_group, beak_depth)
 
 I will use one-way and two-way ANOVA to analyze the data and to find out which variables affect beak depth, and what interactions, if any, exist.
 
+```{r data, warning=FALSE, message=FALSE}
+data1975 <- read_csv("finch_beaks_1975.csv")
+
+data2012 <- read_csv("finch_beaks_2012.csv")
+
+beak_depth <- c(data1975$bdepth, data2012$bdepth)
+
+year_group <- as.factor(c(rep(1975, 403), rep(2012, 248)))
+
+species_group <- as.factor(c(rep("Fortis", 316), rep("Scandens", 87), rep("Fortis", 121), rep("Scandens", 127)))
+
+treatment_group <- as.factor(c(rep("Fortis-1975", 316), rep("Scandens-1975", 87), rep("Fortis-2012", 121), rep("Scandens-2012", 127)))
+
+treamtent_groups_tibble <- tibble(treatment_group, beak_depth)
+```
 
 ## Summary Statistics
 
 ### Summary Data for Each Treatment Group
 
-```{r summary_stats}
+```{r summary_stats, warning=FALSE, message=FALSE}
 summary_stats <- treamtent_groups_tibble %>%
                     group_by('Treament Group'=treatment_group) %>%
                     summarise(mean = mean(beak_depth), sd = sd(beak_depth), min=min(beak_depth), median = median(beak_depth), max = max(beak_depth), n = n()) 
